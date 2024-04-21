@@ -1,6 +1,7 @@
 <?php
 
-require_once 'src/models/model.php';
+require_once('src/models/post/post.php');
+require_once('src/models/comment/comment.php');
 
 function post($identifier)
 {

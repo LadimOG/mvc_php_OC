@@ -14,6 +14,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
         }
     } elseif ($_GET['action'] === 'add_comment' && $_GET['action'] !== '') {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
+
             $post_id = (int)$_GET['id'];
             addComment($post_id, $_POST);
         } else {
