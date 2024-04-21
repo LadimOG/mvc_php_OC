@@ -1,2 +1,5 @@
-#RewriteEngine On
-#RewriteRule ^([a-zA-Z]+)/([0-9]+)$ index.php?action=$1&id=$2
+RewriteEngine On
+
+RewriteRule ^accueil$ index.php
+
+RewriteRule ^post/([0-9]+)$ index.php?action=post&id=$1 [NC,L]

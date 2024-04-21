@@ -6,7 +6,5 @@ function post($identifier)
 {
     $post = getPost($identifier);
     $comments = getComments($identifier);
-    require_once 'templates/post.php';
+    require_once 'templates/front/post.php';
 }
-
-
