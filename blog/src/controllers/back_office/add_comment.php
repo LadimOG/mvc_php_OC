@@ -11,7 +11,7 @@ function addComment(int $id_post, array $inputs)
         $author = $inputs['pseudo'];
         $comment = $inputs['comment'];
     } else {
-        die('Veuillez bien remplir les champs');
+        throw new Exception('Veuillez bien remplir les champs');
     }
 
     $success =  createComment($author, $comment, $id_post);
@@ -19,6 +19,6 @@ function addComment(int $id_post, array $inputs)
     if ($success) {
         header("Location: index.php?action=post&id={$id_post}");
     } else {
-        die('Votre commentaire n\'a pas été ajouté');
+        throw new Exception('Votre commentaire n\'a pas été ajouté');
     }
 }

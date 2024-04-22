@@ -4,5 +4,5 @@ require_once('src/models/post/post.php');
 function homePage()
 {
     $posts = getPosts();
-    require_once 'templates/front/homePage.php';
+    require_once 'templates/homePage.php';
 }

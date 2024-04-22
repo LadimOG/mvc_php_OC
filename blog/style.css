@@ -49,3 +49,18 @@ a {
     margin-bottom: 5px;
     background: rgb(230, 230, 230);
 }
+
+.error-container {
+    text-align: center;
+    margin-top: 20%;
+}
+
+.error-container h1 {
+    font-size: 3em;
+    color: #ff0000;
+}
+
+.error-container p {
+    font-size: 1.5em;
+    color: #333;
+}
