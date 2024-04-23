@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Front_office\Post;
+namespace App\Controllers\Post;
 
 require_once('src/models/post/post.php');
 require_once('src/models/comment/comment.php');
@@ -22,6 +22,7 @@ class ShowPost
         $repositoryComment = new CommentRepository();
         $repositoryComment->connection = new DatabaseConnection();
         $comments = $repositoryComment->getComments($identifier);
+
         require('templates/post.php');
     }
 }

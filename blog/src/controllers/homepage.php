@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controllers\Front_office\Homepage;
+namespace App\Controllers\Homepage;
 
 require_once('src/models/post/post.php');
-require_once 'src/lib/database.php';
+require_once('src/lib/database.php');
 
 use App\Models\Post\Post\PostRepository;
 use App\Lib\Database\DatabaseConnection;

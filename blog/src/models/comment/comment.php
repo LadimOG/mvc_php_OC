@@ -8,9 +8,11 @@ use App\Lib\Database\DatabaseConnection;
 
 class Comment
 {
+    public int $id;
     public string $author;
     public string $comment;
     public string $frenchCreationDate;
+    public int $post_id;
 }
 
 class CommentRepository
@@ -46,12 +48,49 @@ class CommentRepository
         while ($row = $statement->fetch()) {
 
             $comment = new Comment();
+            $comment->id = $row['id'];
             $comment->author = $row['author'];
             $comment->comment = $row['comment'];
             $comment->frenchCreationDate = $row['comment_date_fr'];
+            $comment->post_id = $row['post_id'];
 
             $comments[] = $comment;
         }
         return $comments;
+    }
+
+    public function getComment(int $id): array
+    {
+        $statement = $this->connection->getConnect()->prepare('SELECT *, DATE_FORMAT(comment_date, "%d/%m/%Y à %Hh%imin%s") as comment_date_fr FROM comments WHERE id = :id');
+        $statement->execute([
+            'id' => $id
+        ]);
+
+        $comments = [];
+        while ($row = $statement->fetch()) {
+            $comment = new Comment();
+            $comment->id = $row['id'];
+            $comment->author = $row['author'];
+            $comment->comment = $row['comment'];
+            $comment->frenchCreationDate = $row['comment_date_fr'];
+            $comment->post_id = $row['post_id'];
+
+            $comments[] = $comment;
+        }
+
+        return $comments;
+    }
+
+    public function update($author, $comment, $identifier): bool
+    {
+        $statement = $this->connection->getConnect()->prepare('UPDATE comments SET author = :author, comment = :comment WHERE id = :id');
+
+        $success = $statement->execute([
+            'author' => $author,
+            'comment' => $comment,
+            'id' => $identifier
+        ]);
+
+        return ($success > 0);
     }
 }

@@ -1,13 +1,15 @@
 <?php
 session_start();
-require_once 'src/controllers/front_office/post.php';
-require_once 'src/controllers/front_office/homepage.php';
-require_once 'src/controllers/back_office/add_comment.php';
-require_once 'src/controllers/front_office/error.php';
+require_once 'src/controllers/post.php';
+require_once 'src/controllers/homepage.php';
+require_once 'src/controllers/comment/add.php';
+require_once 'src/controllers/error.php';
+require_once 'src/controllers/comment/update.php';
 
-use App\Controllers\Back_office\AddComment;
-use App\Controllers\Front_office\Homepage\ShowHomePage;
-use App\Controllers\Front_office\Post\ShowPost;
+use App\Controllers\Comment\Add\AddComment;
+use App\Controllers\Homepage\ShowHomePage;
+use App\Controllers\Post\ShowPost;
+use App\Controllers\Comment\Update\UpdateComment;
 
 try {
     if (isset($_GET['action']) && !empty($_GET['action'])) {
@@ -22,8 +24,19 @@ try {
         } elseif ($_GET['action'] === 'add_comment' && $_GET['action'] !== '') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $post_id = (int)$_GET['id'];
-                $addComment = new AddComment();
-                $addComment->addComment($post_id, $_POST);
+                (new AddComment())->addComment($post_id, $_POST);
+            } else {
+                throw new Exception("Le post n'as pas été trouvé!!");
+            }
+        } elseif ($_GET['action'] === 'updateComment' && $_GET['action'] !== '') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                $id_comment = (int)$_GET['id'];
+                $inputs = null;
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $inputs = $_POST;
+                }
+
+                (new UpdateComment())->execute($id_comment, $inputs);
             } else {
                 throw new Exception("Le post n'as pas été trouvé!!");
             }

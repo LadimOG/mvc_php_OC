@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Back_office;
+namespace App\Controllers\Comment\Add;
 
 require_once('src/models/comment/comment.php');
 require_once('src/lib/database.php');

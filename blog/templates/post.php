@@ -19,7 +19,7 @@
 <?php foreach ($comments as $comment) : ?>
 
     <div class="comments">
-        <h5><?= htmlspecialchars($comment->author) ?><span class="creation-date"><em>posté le :<?= $comment->frenchCreationDate ?></em></span></h5>
+        <h5><?= htmlspecialchars($comment->author) ?><span class="creation-date"><em>posté le :<?= $comment->frenchCreationDate ?></em></span><a href="index.php?action=updateComment&id=<?= $comment->id ?>">(modifier)</a></h5>
         <p><?= nl2br(htmlspecialchars($comment->comment)) ?></p>
     </div>
 <?php endforeach; ?>
