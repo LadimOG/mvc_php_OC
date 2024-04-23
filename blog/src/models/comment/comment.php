@@ -1,4 +1,10 @@
 <?php
+class Comment
+{
+    public string $author;
+    public string $comment;
+    public string $frenchCreationDate;
+}
 
 function createComment($author, $comment, $post_id): bool
 {
@@ -15,7 +21,7 @@ function createComment($author, $comment, $post_id): bool
     return $success;
 }
 
-function getComments(int $id)
+function getComments(int $id): array
 {
 
     $bdd = databaseCO();
@@ -27,16 +33,18 @@ function getComments(int $id)
     $comments = [];
 
     while ($row = $statement->fetch()) {
-        $comment = [
-            'id' => $row['id'],
-            'author' => $row['author'],
-            'comment' => $row['comment'],
-            'creation_date' => $row['comment_date_fr'],
-        ];
+
+        $comment = new Comment();
+        $comment->author = $row['author'];
+        $comment->comment = $row['comment'];
+        $comment->frenchCreationDate = $row['comment_date_fr'];
+
         $comments[] = $comment;
     }
     return $comments;
 }
+
+
 
 function databaseCO()
 {

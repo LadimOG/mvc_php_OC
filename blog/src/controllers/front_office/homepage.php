@@ -3,6 +3,7 @@
 require_once('src/models/post/post.php');
 function homePage()
 {
-    $posts = getPosts();
-    require_once 'templates/homePage.php';
+    $repository = new PostRepository();
+    $posts = $repository->getPosts();
+    require('templates/homePage.php');
 }

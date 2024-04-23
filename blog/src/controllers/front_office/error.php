@@ -6,6 +6,6 @@ function gestionError($e)
 
     if (isset($e)) {
         $messageError = $e->getMessage();
-        require_once('templates/error.php');
+        require('templates/error.php');
     }
 }
