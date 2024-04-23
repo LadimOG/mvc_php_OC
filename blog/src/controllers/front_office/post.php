@@ -1,12 +1,27 @@
 <?php
 
+namespace App\Controllers\Front_office\Post;
+
 require_once('src/models/post/post.php');
 require_once('src/models/comment/comment.php');
+require_once 'src/lib/database.php';
 
-function post($identifier)
+use App\Models\Comment\Comment\CommentRepository;
+use App\Models\Post\Post\PostRepository;
+use App\Lib\Database\DatabaseConnection;
+
+
+class ShowPost
 {
-    $repository = new PostRepository();
-    $post = $repository->getPost($identifier);
-    $comments = getComments($identifier);
-    require('templates/post.php');
+    function post($identifier)
+    {
+        $repository = new PostRepository();
+        $repository->connection = new DatabaseConnection();
+        $post = $repository->getPost($identifier);
+
+        $repositoryComment = new CommentRepository();
+        $repositoryComment->connection = new DatabaseConnection();
+        $comments = $repositoryComment->getComments($identifier);
+        require('templates/post.php');
+    }
 }
