@@ -15,7 +15,7 @@
                 <label for="comment">Commentaire:</label>
                 <textarea name="comment" id="comment"><?= $comment->comment ?></textarea>
             </div>
-            <input type="submit">
+            <input type="submit" name="submit" value="Modifier">
         </form>
     </div>
 <?php endforeach ?>

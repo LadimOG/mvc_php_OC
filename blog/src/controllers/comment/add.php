@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Controllers\Comment\Add;
+namespace App\Controllers\Comment;
 
-require_once('src/models/comment/comment.php');
-require_once('src/lib/database.php');
+use App\Lib\Database;
+use App\Models\Comment\CommentRepository;
 
-use App\Models\Comment\Comment\CommentRepository;
-use App\Lib\Database\DatabaseConnection;
 
-class AddComment
+class Add
 {
     public string $author;
     public string $comment;
@@ -24,7 +22,7 @@ class AddComment
         }
 
         $createComment = new CommentRepository();
-        $createComment->connection = new DatabaseConnection();
+        $createComment->connection = new Database();
         $success =  $createComment->createComment($this->author, $this->comment, $id_post);
 
         if ($success) {

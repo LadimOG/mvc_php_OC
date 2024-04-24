@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Controllers\Comment\Update;
+namespace App\Controllers\Comment;
 
-require_once('src/models/comment/comment.php');
+use App\Lib\Database;
+use App\Models\Comment\CommentRepository;
 
-use App\Lib\Database\DatabaseConnection;
-use App\Models\Comment\Comment\CommentRepository;
-
-
-class UpdateComment
+class Update
 {
     public function execute(int $identifier, ?array $inputs)
     {
         $commentRepository = new CommentRepository();
-        $commentRepository->connection = new DatabaseConnection();
+        $commentRepository->connection = new Database();
         $comments = $commentRepository->getComment($identifier);
 
         if ($comments === null) {
@@ -21,24 +18,27 @@ class UpdateComment
         }
         require('templates/update_comment.php');
 
-        if ($inputs !== null) {
-            $author = null;
-            $comment = null;
-            if (!empty($inputs['author']) && !empty($inputs['comment'])) {
-                $author = $inputs['author'];
-                $comment = $inputs['comment'];
-            } else {
-                throw new \Exception('Les données du formulaire sont invalides.');
-            }
 
-            $commentRepository = new CommentRepository();
-            $commentRepository->connection = new DatabaseConnection();
-            $success = $commentRepository->update($author, $comment, $identifier);
+        if (isset($_POST['submit'])) {
+            if ($inputs !== null) {
+                $author = null;
+                $comment = null;
+                if (!empty($inputs['author']) && !empty($inputs['comment'])) {
+                    $author = $inputs['author'];
+                    $comment = $inputs['comment'];
+                } else {
+                    throw new \Exception('Les données du formulaire sont invalides.');
+                }
 
-            if ($success) {
-                header('Location: index.php?action=updateComment&id=' . $identifier);
-            } else {
-                throw new \Exception('Impossible de modifier le commentaire !');
+                $commentRepository = new CommentRepository();
+                $commentRepository->connection = new Database();
+                $success = $commentRepository->update($author, $comment, $identifier);
+
+                if ($success) {
+                    header('Location: index.php?action=updateComment&id=' . $identifier);
+                } else {
+                    throw new \Exception('Impossible de modifier le commentaire !');
+                }
             }
         }
     }

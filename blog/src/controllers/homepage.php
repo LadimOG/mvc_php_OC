@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Controllers\Homepage;
+namespace App\Controllers;
 
-require_once('src/models/post/post.php');
-require_once('src/lib/database.php');
+use App\Lib\Database;
+use App\Models\Post\PostRepository;
 
-use App\Models\Post\Post\PostRepository;
-use App\Lib\Database\DatabaseConnection;
-
-class ShowHomePage
+class HomePage
 {
     function homepage()
     {
         $repository = new PostRepository();
-        $repository->connection = new DatabaseConnection();
+        $repository->connection = new Database();
         $posts = $repository->getPosts();
         require('templates/homePage.php');
     }
