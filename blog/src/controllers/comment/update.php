@@ -10,10 +10,9 @@ class Update
     public function execute(int $identifier, ?array $inputs)
     {
         $commentRepository = new CommentRepository();
-        $commentRepository->connection = new Database();
-        $comments = $commentRepository->getComment($identifier);
+        $comment = $commentRepository->getComment($identifier);
 
-        if ($comments === null) {
+        if ($comment === null) {
             throw new \Exception("Le commentaire $identifier n'existe pas.");
         }
         require('templates/update_comment.php');
@@ -31,7 +30,6 @@ class Update
                 }
 
                 $commentRepository = new CommentRepository();
-                $commentRepository->connection = new Database();
                 $success = $commentRepository->update($author, $comment, $identifier);
 
                 if ($success) {

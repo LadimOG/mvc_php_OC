@@ -1,10 +1,7 @@
 <?php
-// class Comment
-// {
-//     public string $author;
-//     public string $comment;
-//     public string $frenchCreationDate;
-// }
+require 'vendor/autoload.php';
+
+use App\Lib\Database;
 
 
-// $comment1 = new Comment();
+var_dump(new Database());

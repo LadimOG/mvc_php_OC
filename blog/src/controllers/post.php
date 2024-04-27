@@ -2,21 +2,25 @@
 
 namespace App\Controllers;
 
-use App\Lib\Database;
+
 use App\Models\Comment\CommentRepository;
 use App\Models\Post\PostRepository;
+use Exception;
 
 class Post
 {
-    function post($identifier)
+    function ShowPost($identifier)
     {
         $repository = new PostRepository();
-        $repository->connection = new Database();
         $post = $repository->getPost($identifier);
+        if ($post === null) {
+            throw new Exception('Cette identifiant n\'existe pas !');
+        }
+
 
         $repositoryComment = new CommentRepository();
-        $repositoryComment->connection = new Database();
         $comments = $repositoryComment->getComments($identifier);
+
 
         require('templates/post.php');
     }

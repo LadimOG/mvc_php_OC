@@ -16,8 +16,14 @@ require 'vendor/autoload.php';
 
 use App\Controllers\Comment\Add;
 use App\Controllers\Comment\Update;
+use App\Controllers\Error\ErrorPage;
 use App\Controllers\HomePage;
 use App\Controllers\Post;
+
+
+
+// require_once('src/controllers/Error.php');
+
 
 try {
     if (isset($_GET['action']) && !empty($_GET['action'])) {
@@ -25,7 +31,7 @@ try {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $identifier = (int) $_GET['id'];
                 $showPost = new Post();
-                $showPost->post($identifier);
+                $showPost->ShowPost($identifier);
             } else {
                 throw new Exception('L\'identifiant n\'a pas été trouvé! ');
             }
@@ -53,8 +59,9 @@ try {
         }
     } else {
         $homePage = new HomePage();
-        $homePage->homepage();
+        $homePage->index();
     }
 } catch (\Exception $e) {
-    gestionError($e);
+
+    (new ErrorPage())->error($e);
 }

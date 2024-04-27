@@ -22,7 +22,6 @@ class Add
         }
 
         $createComment = new CommentRepository();
-        $createComment->connection = new Database();
         $success =  $createComment->createComment($this->author, $this->comment, $id_post);
 
         if ($success) {

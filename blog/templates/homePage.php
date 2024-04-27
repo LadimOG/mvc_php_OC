@@ -7,14 +7,14 @@
 <?php foreach ($posts as $post) : ?>
     <div class="news">
         <h3>
-            <?= htmlspecialchars($post->title); ?>
-            <em>le <?= $post->frenchCreationDate; ?></em>
+            <?= htmlspecialchars($post->getTitle()); ?>
+            <em>le <?= $post->getFrenchCreationDate(); ?></em>
         </h3>
         <p>
             <!-- On affiche le contenu du billet -->
-            <?= nl2br(htmlspecialchars($post->content)); ?>
+            <?= nl2br(htmlspecialchars($post->getContent())); ?>
             <br />
-            <em><a href="index.php?action=post&id=<?= urldecode($post->id) ?>">Commentaires</a></em>
+            <em><a href="index.php?action=post&id=<?= $post->getId() ?>">Commentaires</a></em>
         </p>
     </div>
 <?php endforeach; ?>
